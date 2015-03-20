@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\BeatCounterEditor.cs" />
      <Compile Include="Assets\Editor\PatternCounterEditor.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\Editor\BoardEditor.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

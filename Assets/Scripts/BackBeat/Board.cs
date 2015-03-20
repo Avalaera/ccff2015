@@ -7,21 +7,22 @@ using System;
 public class Board : MonoBehaviour {
 
 	[Range(1, 10)]
-	public int rows, columns, criticalColumn;
+	public int rows, columns;
 
 	public Cell cellPrefab;
 
-	public CriticalColumnCell ccPrefab;
+	public CriticalCell ccPrefab;
 
 	private List<RowData> rowList, movableRowList;
 
+	[HideInInspector][SerializeField]
+	public CriticalCellDictionary ccDict;
+
+	private Vector2[] keys;
+
 	private static Board instance = null;
 
-	private int adjustedCriticalColumn;
-
 	public int MatchRequirement = 3;
-
-	private int matches = 0;
 
 	public bool autoClearOnMatch = false;
 
@@ -33,13 +34,27 @@ public class Board : MonoBehaviour {
 
 	public RowPickerData picker;
 
+	public enum ClearStyles
+	{
+		MatchesOnly,
+		AllCriticalSpaces
+	};
+
+	public enum SpecialClearStyles
+	{
+		None,
+		ClearAllMatchingColors
+	};
+
+	public ClearStyles clearStyle;
+
+	public SpecialClearStyles specialClearStyle;
+
 	private void Awake()
 	{
 		if(instance == null)
 		{
 			instance = this;
-
-			adjustedCriticalColumn = criticalColumn - 1;
 
 			rowList = new List<RowData>();
 
@@ -47,7 +62,10 @@ public class Board : MonoBehaviour {
 
 			movableRowList = new List<RowData>(rowList);
 
-			PerformRowAction (MakeCriticalColumn);
+			keys = new Vector2[ccDict.Keys.Count];
+			ccDict.Keys.CopyTo (keys, 0);
+
+			DoWithKeys (MakeCriticalCellWithIndex);
 		}
 		else
 		{
@@ -66,9 +84,14 @@ public class Board : MonoBehaviour {
 		rowList[x].onMoveBackward.AddListener (AddToMovableRowList);
 	}
 
-	private void MakeCriticalColumn(int x)
+	private void MakeCriticalCellWithIndex(int i)
 	{
-		CriticalColumnCell c = Instantiate<CriticalColumnCell>(ccPrefab);
+		MakeCriticalCell (keys[i], ccDict[keys[i]]);
+	}
+
+	private void MakeCriticalCell(Vector2 pos, CriticalCellData d)
+	{
+		CriticalCell c = Instantiate<CriticalCell>(ccPrefab);
 
 		c.transform.parent = transform.parent;
 
@@ -76,13 +99,23 @@ public class Board : MonoBehaviour {
 
 		c.transform.localScale = new Vector3(scale.x, scale.y, c.transform.localScale.z);
 
-		c.name = string.Format ("_CriticalColumnCell[{0},{1}]", adjustedCriticalColumn, x);
+		float adjustedX = pos.x - transform.position.x;
+		float adjustedY = transform.position.y - pos.y;
 
-		c.transform.localPosition = new Vector3((cellPrefab.Size.x * adjustedCriticalColumn) + transform.localPosition.x, transform.localPosition.y - (cellPrefab.Size.y * x), transform.localPosition.z);
+		c.name = string.Format ("_CriticalCell[{0},{1}]", adjustedX, adjustedY);
+
+		c.transform.position = new Vector3(transform.position.x + (adjustedX * cellPrefab.Size.x), transform.position.y - (cellPrefab.Size.y * adjustedY), transform.position.z);
 
 		c.matchReq = MatchRequirement;
 
 		c.instantClear = autoClearOnMatch;
+
+		for(int i = 0; i < d.NeighborPositions.Count ; i++)
+		{
+			d.AddNeighbor(ccDict[d.NeighborPositions[i]]);
+		}
+
+		c.SetCriticalCellData(d);
 	}
 
 	private void PerformColumnAction(Action<int> a)
@@ -101,14 +134,22 @@ public class Board : MonoBehaviour {
 		}
 	}
 
-	private void Perform2DArrayAction(Action<int, int> a)
+	public void Perform2DArrayAction(Action<int, int> a)
 	{
-		for(int y = 0; y < rows; y++)
+		for(int y = 0; y < columns; y++)
 		{
-			for(int x = 0; x < columns; x++)
+			for(int x = 0; x < rows; x++)
 			{
 				a.Invoke (x, y);
 			}
+		}
+	}
+
+	private void DoWithKeys(Action<int> a)
+	{
+		for(int i = 0; i < keys.Length; i++)
+		{
+			a.Invoke (i);
 		}
 	}
 
@@ -118,20 +159,6 @@ public class Board : MonoBehaviour {
 		{
 			Perform2DArrayAction (DrawWireCube);
 		}	
-
-		if(ccPrefab != null)
-		{
-			if(autoClearOnMatch)
-			{
-				Gizmos.color = Color.cyan;
-			}
-			else
-			{
-				Gizmos.color = Color.yellow;
-			}
-
-			PerformRowAction(DrawWireCube);
-		}
 	}
 
 	private void DrawWireCube(int x, int y)
@@ -140,7 +167,7 @@ public class Board : MonoBehaviour {
 		{
 			Gizmos.color = Color.green;
 		}
-		else if (x == columns - 1)
+		else if (x == rows - 1)
 		{
 			Gizmos.color = Color.red;
 		}
@@ -148,15 +175,8 @@ public class Board : MonoBehaviour {
 		{
 			Gizmos.color = Color.white;
 		}
-		
+
 		Gizmos.DrawWireCube(new Vector3(transform.position.x + (x * cellPrefab.Size.x), transform.position.y - (y * cellPrefab.Size.y), 0), cellPrefab.Size);
-	}
-
-	private void DrawWireCube(int y)
-	{
-		Vector2 scale = cellPrefab.Size * 0.5f;
-
-		Gizmos.DrawWireCube(new Vector3(transform.position.x + ((criticalColumn - 1) * cellPrefab.Size.x), transform.position.y - (y * cellPrefab.Size.y), 0), scale);
 	}
 
 	public void DoOnBeat(BeatType mask)
@@ -189,35 +209,113 @@ public class Board : MonoBehaviour {
 		}
 	}
 
-	public void Match()
+	public void Match(List<Cell> matches)
 	{
-		matches = 0;
-
-		PerformRowAction (CheckCriticalColumn);
-
-		if(matches >= MatchRequirement || autoClearOnMatch)
+		if(matches.Count >= MatchRequirement || autoClearOnMatch)
 		{
-			PerformRowAction (ScoreMatches);
+			switch(clearStyle)
+			{
+				case ClearStyles.AllCriticalSpaces:
+					DoWithKeys (ScoreMatchesA);
+					break;
+				case ClearStyles.MatchesOnly:
+					PerformRowAction (ScoreMatchesB);
+					break;
+			}
 
 			beatsToSkip = numOfBeatsToSkipAfterMatch;
 		}
 	}
 
-	private void CheckCriticalColumn(int x)
+	private void ScoreMatchesA(int i)
 	{
-		if(adjustedCriticalColumn < rowList[x].CellCount && rowList[x].Cells[adjustedCriticalColumn].matched)
-		{
-			matches++;
-		}
-	}
-
-	private void ScoreMatches(int x)
-	{
-		Cell c = rowList[x].RemoveCell(adjustedCriticalColumn);
+		Cell c = ccDict[keys[i]].cell;
 
 		if(c != null)
 		{
-			c.Destroy();
+			c.remove = true;
+
+			HandleScoringCell(c);
+
+			c = null;
+		}
+	}
+
+	private void ScoreMatchesB(int x)
+	{
+		RowData r = rowList[x];
+
+		for(int i = 0; i < r.Cells.Count; i++)
+		{
+			HandleScoringCell(r.Cells[i], r);
+		}
+	}
+
+	private void HandleScoringCell(Cell c, RowData r = null, bool doSpecial = true)
+	{
+		List<Color> colorInfo = new List<Color>();
+
+		if(c != null)
+		{
+			if(r == null)
+			{
+				r = rowList[c.transform.parent.GetSiblingIndex()];
+			}
+
+			if(c.matched || c.remove)
+			{
+				if(c.matched && !colorInfo.Contains (c.DefaultGraphicTD.color))
+				{
+					colorInfo.Add (c.DefaultGraphicTD.color);
+				}
+
+				r.RemoveCell (r.Cells.IndexOf (c));
+				
+				c.Destroy();
+			}
+		}
+
+		if(doSpecial)
+		{
+			switch(specialClearStyle)
+			{
+				case SpecialClearStyles.ClearAllMatchingColors:
+					ClearMatchingColors(colorInfo);
+					break;
+			};
+		}
+	}
+	
+	public void ClickScore()
+	{
+		CriticalCellData data = null;
+
+		for(int i = 0; i < keys.Length; i++)
+		{
+			data = ccDict[keys[i]];
+
+			if(data.CurrentMatchList.Count >= MatchRequirement)
+			{
+				i = keys.Length;
+
+				Match (data.CurrentMatchList);
+			}
+		}
+	}
+
+	private void ClearMatchingColors(List<Color> info)
+	{
+		for(int i = 0; i < rows; i++)
+		{
+			for(int j = 0; j < rowList[i].Cells.Count; j++)
+			{
+				if(info.Contains (rowList[i].Cells[j].DefaultGraphicTD.color))
+				{
+					rowList[i].Cells[j].matched = true;
+
+					HandleScoringCell (rowList[i].Cells[j], rowList[i], false);
+				}
+			}
 		}
 	}
 
@@ -234,6 +332,14 @@ public class Board : MonoBehaviour {
 		get
 		{
 			return rowList;
+		}
+	}
+
+	public CriticalCellDictionary CCDict
+	{
+		get
+		{
+			return ccDict;
 		}
 	}
 }

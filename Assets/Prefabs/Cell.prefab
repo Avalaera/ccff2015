@@ -7,9 +7,11 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 402344}
-  - 65: {fileID: 6590606}
+  - 224: {fileID: 22458904}
   - 114: {fileID: 11407364}
+  - 222: {fileID: 22225456}
+  - 65: {fileID: 6590606}
+  - 114: {fileID: 11453002}
   m_Layer: 0
   m_Name: Cell
   m_TagString: Cell
@@ -52,20 +54,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &402344
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 148288}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 414966}
-  - {fileID: 474864}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
 --- !u!4 &414966
 Transform:
   m_ObjectHideFlags: 1
@@ -76,7 +64,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: .699999988, y: .699999988, z: 1}
   m_Children: []
-  m_Father: {fileID: 402344}
+  m_Father: {fileID: 22458904}
   m_RootOrder: 0
 --- !u!4 &474864
 Transform:
@@ -88,7 +76,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 402344}
+  m_Father: {fileID: 22458904}
   m_RootOrder: 1
 --- !u!23 &2345386
 MeshRenderer:
@@ -99,10 +87,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 2100000, guid: 61bdce2c978cb2847a606bdce4a82a31, type: 2}
   m_SubsetIndices: 
@@ -127,10 +111,6 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapIndexDynamic: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_LightmapTilingOffsetDynamic: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
   - {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
@@ -200,31 +180,97 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b438d8ae1ae6549948edcbc45e678a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 0
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: .960784316, g: .960784316, b: .960784316, a: 1}
+    m_PressedColor: {r: .784313738, g: .784313738, b: .784313738, a: 1}
+    m_DisabledColor: {r: .784313738, g: .784313738, b: .784313738, a: .501960814}
+    m_ColorMultiplier: 1
+    m_FadeDuration: .100000001
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   graphic: {fileID: 414966}
   bg: {fileID: 2370350}
   shapes:
   - {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  colors:
-  - {r: 1, g: 1, b: 1, a: 0}
+  colorChoices:
+  - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 0, b: 0, a: 0}
   - {r: 0, g: 1, b: 0, a: 0}
   - {r: 0, g: 0, b: 1, a: 0}
   states:
     highlight: {fileID: 2100000, guid: 7772d3da9f2cbc64fa06ffce0544c7e8, type: 2}
     normal: {fileID: 2100000, guid: f417b7c189198bf4d87e38cc5f24dd3c, type: 2}
-  dragTime: .150000006
-  onClick:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  onDrag:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
   ccCell: {fileID: 0}
   matched: 0
+  clickOnBeat: 0
+--- !u!114 &11453002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &22225456
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148288}
+--- !u!224 &22458904
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 148288}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 414966}
+  - {fileID: 474864}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_AnchorMin: {x: .5, y: .5}
+  m_AnchorMax: {x: .5, y: .5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: .5, y: .5}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

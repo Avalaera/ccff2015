@@ -47,10 +47,12 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\BackBeat\Board.cs" />
-     <Compile Include="Assets\Scripts\BackBeat\BoardData.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Cell.cs" />
-     <Compile Include="Assets\Scripts\BackBeat\CriticalColumnCell.cs" />
-     <Compile Include="Assets\Scripts\BackBeat\RowPickerData.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\CriticalCell.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\Data\BoardData.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\Data\CriticalCellData.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\Data\RowPickerData.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\Data\SerializableDictionary.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatCounter.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatObserver.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatSynchronizer.cs" />

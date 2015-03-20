@@ -35,7 +35,7 @@ public class RowData
 
 		c.clickOnBeat = Board.Instance.rowMoveOnBeat;
 
-		c.transform.parent = transform;
+		c.transform.SetParent (transform, false);
 		
 		c.transform.SetAsFirstSibling ();
 		
@@ -55,13 +55,13 @@ public class RowData
 	{
 		Cell c = null;
 
-		if(Cells.Count > index)
+		if(index > -1 && Cells.Count > index)
 		{
 			c = Cells[index];
 
 			Cells.Remove (c);
 
-			c.transform.parent = Board.Instance.transform;
+			c.transform.SetParent (Board.Instance.transform);
 
 			for(int i = 0; i < cells.Count; i++)
 			{
@@ -72,7 +72,7 @@ public class RowData
 
 			if(c.ccCell != null && cells.Count > index)
 			{
-				c.ccCell.OnTriggerEnter(cells[index].GetComponent<Collider>());
+				c.ccCell.OnTriggerEnter(cells[index].Coll);
 			}
 		}
 

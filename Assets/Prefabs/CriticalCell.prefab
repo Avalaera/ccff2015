@@ -12,7 +12,7 @@ GameObject:
   - 54: {fileID: 5420980}
   - 114: {fileID: 11441298}
   m_Layer: 2
-  m_Name: CriticalColumnCell
+  m_Name: CriticalCell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,6 +70,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   torqueMagnitude: 10
   matchReq: 0
+  instantClear: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

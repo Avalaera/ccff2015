@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Events;
 using SynchronizerData;
+using UnityEngine.UI;
 using System;
 
-public class Cell : MonoBehaviour {
+public class Cell : Button {
 
-	internal class TransData
+	public class TransData
 	{
 		public Mesh mesh;
 
@@ -24,7 +25,7 @@ public class Cell : MonoBehaviour {
 			color = c;
 
 			scale = s;
-
+		
 			rotation = rot;
 		}
 	}
@@ -42,14 +43,12 @@ public class Cell : MonoBehaviour {
 
 	public List<Mesh> shapes;
 
-	public List<Color> colors;
+	public List<Color> colorChoices;
 
 	public RendererStates states;
 
-	public UnityEvent onClick = new UnityEvent();
-
 	[HideInInspector]
-	public CriticalColumnCell ccCell = null;
+	public CriticalCell ccCell;
 
 	private TransData defaultGraphicTD;
 
@@ -65,8 +64,15 @@ public class Cell : MonoBehaviour {
 	[HideInInspector]
 	public bool clickOnBeat = false;
 
-	private void Awake()
+	[HideInInspector]
+	public bool remove = false;
+
+	private Collider coll;
+
+	protected override void Awake()
 	{
+		base.Awake ();
+
 		defaultGraphicTD = new TransData(graphic.transform.localScale, graphic.transform.rotation);
 
 		beatObs = GameObject.FindGameObjectWithTag ("OnBeatObs").GetComponent<BeatObserver>();
@@ -74,19 +80,21 @@ public class Cell : MonoBehaviour {
 
 		anim = GetComponentInChildren<Animator>();
 
+		coll = GetComponent<Collider>();
+
 		Randomize();
 	}
 
 	private void Randomize()
 	{
 		defaultGraphicTD.mesh = shapes[UnityEngine.Random.Range(0, shapes.Count)];
-		defaultGraphicTD.color = colors[UnityEngine.Random.Range(0, colors.Count)];
+		defaultGraphicTD.color = colorChoices[UnityEngine.Random.Range(0, colorChoices.Count)];
 
 		graphic.GetComponent<MeshFilter>().mesh = defaultGraphicTD.mesh;
 		graphic.GetComponent<MeshRenderer>().material.color = defaultGraphicTD.color;
 	}
 
-	private void OnMouseDown()
+	public override void OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData)
 	{
 		if(!clickOnBeat || bMask.Equals(BeatType.OnBeat))
 		{
@@ -117,7 +125,17 @@ public class Cell : MonoBehaviour {
 
 		anim.StopPlayback();
 
+		ClearCriticalCell ();
+
 		gameObject.SetActive (false);
+	}
+
+	public void ClearCriticalCell()
+	{
+		if(ccCell != null)
+		{
+			ccCell.OnTriggerExit (coll);
+		}
 	}
 
 	private void FixedUpdate()
@@ -139,11 +157,27 @@ public class Cell : MonoBehaviour {
 		}
 	}
 
+	public Collider Coll
+	{
+		get
+		{
+			return coll;
+		}
+	}
+
 	public Vector2 Size
 	{
 		get
 		{
 			return new Vector2(transform.localScale.x, transform.localScale.y);
+		}
+	}
+
+	public TransData DefaultGraphicTD
+	{
+		get
+		{
+			return defaultGraphicTD;
 		}
 	}
 }
