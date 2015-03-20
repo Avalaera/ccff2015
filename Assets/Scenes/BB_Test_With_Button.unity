@@ -687,84 +687,8 @@ MonoBehaviour:
   cellPrefab: {fileID: 11407364, guid: e2d564e69f4faa1409523323571ac587, type: 2}
   ccPrefab: {fileID: 11441298, guid: 4aafdbe862b1bf243a40360bdf503ce9, type: 2}
   ccDict:
-    keys:
-    - {x: 2, y: 5}
-    - {x: 1, y: 5}
-    - {x: 1, y: 4}
-    - {x: 2, y: 4}
-    - {x: 2, y: 3}
-    - {x: 1, y: 3}
-    - {x: 1, y: 2}
-    - {x: 2, y: 2}
-    - {x: 2, y: 1}
-    - {x: 1, y: 1}
-    - {x: 1, y: 0}
-    - {x: 2, y: 0}
-    - {x: 2, y: -1}
-    - {x: 1, y: -1}
-    - {x: 1, y: -2}
-    - {x: 2, y: -2}
-    - {x: 2, y: -3}
-    - {x: 1, y: -3}
-    - {x: 1, y: -4}
-    - {x: 2, y: -4}
-    values:
-    - neighborPositions:
-      - {x: 2, y: 4}
-    - neighborPositions:
-      - {x: 1, y: 4}
-    - neighborPositions:
-      - {x: 1, y: 5}
-      - {x: 1, y: 3}
-    - neighborPositions:
-      - {x: 2, y: 5}
-      - {x: 2, y: 3}
-    - neighborPositions:
-      - {x: 2, y: 4}
-      - {x: 2, y: 2}
-    - neighborPositions:
-      - {x: 1, y: 4}
-      - {x: 1, y: 2}
-    - neighborPositions:
-      - {x: 1, y: 3}
-      - {x: 1, y: 1}
-    - neighborPositions:
-      - {x: 2, y: 3}
-      - {x: 2, y: 1}
-    - neighborPositions:
-      - {x: 2, y: 2}
-      - {x: 2, y: 0}
-    - neighborPositions:
-      - {x: 1, y: 2}
-      - {x: 1, y: 0}
-    - neighborPositions:
-      - {x: 1, y: 1}
-      - {x: 1, y: -1}
-    - neighborPositions:
-      - {x: 2, y: 1}
-      - {x: 2, y: -1}
-    - neighborPositions:
-      - {x: 2, y: 0}
-      - {x: 2, y: -2}
-    - neighborPositions:
-      - {x: 1, y: 0}
-      - {x: 1, y: -2}
-    - neighborPositions:
-      - {x: 1, y: -1}
-      - {x: 1, y: -3}
-    - neighborPositions:
-      - {x: 2, y: -1}
-      - {x: 2, y: -3}
-    - neighborPositions:
-      - {x: 2, y: -2}
-      - {x: 2, y: -4}
-    - neighborPositions:
-      - {x: 1, y: -2}
-      - {x: 1, y: -4}
-    - neighborPositions:
-      - {x: 1, y: -3}
-    - neighborPositions:
-      - {x: 2, y: -3}
+    keys: []
+    values: []
   MatchRequirement: 2
   autoClearOnMatch: 0
   numOfBeatsToSkipAfterMatch: 2
@@ -772,7 +696,7 @@ MonoBehaviour:
   picker:
     style: 0
   clearStyle: 0
-  specialClearStyle: 0
+  specialClearStyle: 1
 --- !u!4 &1416816663
 Transform:
   m_ObjectHideFlags: 0

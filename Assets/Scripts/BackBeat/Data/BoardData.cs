@@ -69,11 +69,6 @@ public class RowData
 			}
 
 			MoveBackward ();
-
-			if(c.ccCell != null && cells.Count > index)
-			{
-				c.ccCell.OnTriggerEnter(cells[index].Coll);
-			}
 		}
 
 		return c;

@@ -314,6 +314,8 @@ public class Board : MonoBehaviour {
 					rowList[i].Cells[j].matched = true;
 
 					HandleScoringCell (rowList[i].Cells[j], rowList[i], false);
+
+					j--;
 				}
 			}
 		}
