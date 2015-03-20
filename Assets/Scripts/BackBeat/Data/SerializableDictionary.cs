@@ -11,7 +11,11 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 	
 	[SerializeField]
 	private List<TValue> values = new List<TValue>();
-	
+
+	private const int INITIAL_CAPACITY = 100;
+
+	public SerializableDictionary() : base(INITIAL_CAPACITY) { }
+
 	// save the dictionary to lists
 	public void OnBeforeSerialize()
 	{
@@ -52,6 +56,6 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 		keys.Clear ();
 		values.Clear ();
 
-		Clear ();
+		this.Clear();
 	}
 }

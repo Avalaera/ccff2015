@@ -32,8 +32,6 @@ public class BoardEditor : Editor {
 		if(GUILayout.Button ("Clear Critical Cells"))
 		{
 			board.CCDict.FullClear ();
-
-			board.ccDict = new CriticalCellDictionary();
 		}
 
 		GUILayout.Space (10.0f);

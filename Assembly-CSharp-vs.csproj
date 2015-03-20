@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\BackBeat\Data\CriticalCellData.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Data\RowPickerData.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Data\SerializableDictionary.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\SimpleLevelLoader.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatCounter.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatObserver.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatSynchronizer.cs" />

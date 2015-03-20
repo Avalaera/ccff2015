@@ -7,3 +7,5 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/BB_Test.unity
+  - enabled: 1
+    path: Assets/Scenes/BB_Test_With_Button.unity
