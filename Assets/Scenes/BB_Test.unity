@@ -474,8 +474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d506793ee07e645d28f8aea464882c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatValue: 3
-  beatScalar: 1
+  beatValue: 5
+  beatScalar: 2
   beatOffset: 0
   negativeBeatOffset: 0
   beatType: 2
