@@ -66,6 +66,8 @@ public class RowData
 			for(int i = 0; i < cells.Count; i++)
 			{
 				cells[i].transform.localPosition = new Vector3(-transform.localPosition.x + ((i + 1) * dimensions.x), 0.0f);
+
+				cells[i].transform.SetSiblingIndex (i);
 			}
 
 			MoveBackward ();
@@ -143,3 +145,6 @@ public class RowData
 
 [Serializable]
 public class RowBackEvent : UnityEvent<RowData> {}
+
+[Serializable]
+public class SpriteScoreEvent : UnityEvent<Sprite> {}
