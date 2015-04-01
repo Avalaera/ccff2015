@@ -10,19 +10,15 @@ public class Cell : Button {
 
 	public class TransData
 	{
-		public Mesh mesh;
-
-		public Color color;
+		public Sprite sprite;
 
 		public Vector3 scale;
 
 		public Quaternion rotation;
 
-		public TransData(Vector3 s, Quaternion rot, Mesh m = null, Color c = new Color())
+		public TransData(Vector3 s, Quaternion rot, Sprite sp = null)
 		{
-			mesh = m;
-
-			color = c;
+			sprite = sp;
 
 			scale = s;
 		
@@ -41,9 +37,9 @@ public class Cell : Button {
 
 	public MeshRenderer bg;
 
-	public List<Mesh> shapes;
+	public List<Sprite> spriteChoices;
 
-	public List<Color> colorChoices;
+	public List<Color> spriteTints;
 
 	public RendererStates states;
 
@@ -87,11 +83,9 @@ public class Cell : Button {
 
 	private void Randomize()
 	{
-		defaultGraphicTD.mesh = shapes[UnityEngine.Random.Range(0, shapes.Count)];
-		defaultGraphicTD.color = colorChoices[UnityEngine.Random.Range(0, colorChoices.Count)];
+		defaultGraphicTD.sprite = spriteChoices[UnityEngine.Random.Range (0, spriteChoices.Count)];
 
-		graphic.GetComponent<MeshFilter>().mesh = defaultGraphicTD.mesh;
-		graphic.GetComponent<MeshRenderer>().material.color = defaultGraphicTD.color;
+		graphic.GetComponent<SpriteRenderer>().sprite = defaultGraphicTD.sprite;
 	}
 
 	public override void OnPointerClick (UnityEngine.EventSystems.PointerEventData eventData)
@@ -104,7 +98,12 @@ public class Cell : Button {
 
 	public bool Match(Cell otherCell)
 	{
-		return defaultGraphicTD.color.Equals (otherCell.defaultGraphicTD.color) && defaultGraphicTD.mesh.Equals (otherCell.defaultGraphicTD.mesh);
+		return Match(otherCell.defaultGraphicTD.sprite);
+	}
+
+	public bool Match(Sprite s)
+	{
+		return defaultGraphicTD.sprite.Equals (s);
 	}
 
 	public void DoOnBeat(BeatType mask)

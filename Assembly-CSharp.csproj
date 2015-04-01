@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Elementals\Scripts\OrbitCamera.cs" />
+     <Compile Include="Assets\Elementals\Scripts\TestParticles.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Board.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Cell.cs" />
      <Compile Include="Assets\Scripts\BackBeat\CriticalCell.cs" />
@@ -53,6 +55,9 @@
      <Compile Include="Assets\Scripts\BackBeat\Data\CriticalCellData.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Data\RowPickerData.cs" />
      <Compile Include="Assets\Scripts\BackBeat\Data\SerializableDictionary.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\DialButton.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\Face.cs" />
+     <Compile Include="Assets\Scripts\BackBeat\SimpleCanvasGroupFade.cs" />
      <Compile Include="Assets\Scripts\BackBeat\SimpleLevelLoader.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatCounter.cs" />
      <Compile Include="Assets\Scripts\BeatSynchronizer\BeatObserver.cs" />
@@ -65,6 +70,7 @@
      <Compile Include="Assets\Scripts\LightBehavior1.cs" />
      <Compile Include="Assets\Scripts\ParticlesBehavior.cs" />
      <Compile Include="Assets\Scripts\SphereBehavior.cs" />
+     <None Include="Assets\Elementals\!Readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

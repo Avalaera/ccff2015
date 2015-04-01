@@ -16,11 +16,15 @@ public class CriticalCell : MonoBehaviour {
 
 	private CriticalCellData data = null;
 
+	private ParticleSystem pSys;
+
 	private void Awake()
 	{
 		rb = gameObject.GetComponent<Rigidbody>();
 
 		rb.AddTorque(transform.forward * torqueMagnitude);
+
+		pSys = GetComponentInChildren<ParticleSystem>();
 	}
 
 	public void SetCriticalCellData(CriticalCellData d)
@@ -84,5 +88,12 @@ public class CriticalCell : MonoBehaviour {
 		{
 			data.cell.matched = false;
 		}
+	}
+
+	public void Play(Color c)
+	{
+		pSys.startColor = c;
+
+		pSys.Play ();
 	}
 }

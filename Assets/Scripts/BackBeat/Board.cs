@@ -34,10 +34,13 @@ public class Board : MonoBehaviour {
 
 	public RowPickerData picker;
 
+	private Sprite specificMatchSprite;
+
 	public enum ClearStyles
 	{
 		MatchesOnly,
-		AllCriticalSpaces
+		AllCriticalSpaces,
+		SpecificMatchOnly
 	};
 
 	public enum SpecialClearStyles
@@ -58,7 +61,7 @@ public class Board : MonoBehaviour {
 
 			rowList = new List<RowData>();
 
-			PerformRowAction (MakeRow);
+			PerformColumnAction (MakeRow);
 
 			movableRowList = new List<RowData>(rowList);
 
@@ -193,7 +196,7 @@ public class Board : MonoBehaviour {
 					
 				movableRowList[y].MoveForward(cellPrefab);
 
-				if(movableRowList[y].CellCount >= columns && movableRowList[y].Trans.localPosition.x >= columns * cellPrefab.Size.x)
+				if(movableRowList[y].CellCount >= rows && movableRowList[y].Trans.localPosition.x >= rows * cellPrefab.Size.x)
 				{
 					movableRowList.Remove (movableRowList[y]);
 				}
@@ -219,7 +222,10 @@ public class Board : MonoBehaviour {
 					DoWithKeys (ScoreMatchesA);
 					break;
 				case ClearStyles.MatchesOnly:
-					PerformRowAction (ScoreMatchesB);
+					PerformColumnAction (ScoreMatchesB);
+					break;
+				case ClearStyles.SpecificMatchOnly:
+					PerformColumnAction (ScoreMatchesC);
 					break;
 			}
 
@@ -251,9 +257,22 @@ public class Board : MonoBehaviour {
 		}
 	}
 
+	private void ScoreMatchesC(int x)
+	{
+		RowData r = rowList[x];
+		
+		for(int i = 0; i < r.Cells.Count; i++)
+		{
+			if(r.Cells[i].Match (specificMatchSprite))
+			{
+				HandleScoringCell(r.Cells[i], r);
+			}
+		}
+	}
+
 	private void HandleScoringCell(Cell c, RowData r = null, bool doSpecial = true)
 	{
-		List<Color> colorInfo = new List<Color>();
+		List<Sprite> spriteInfo = new List<Sprite>();
 
 		if(c != null)
 		{
@@ -264,10 +283,12 @@ public class Board : MonoBehaviour {
 
 			if(c.matched || c.remove)
 			{
-				if(c.matched && !colorInfo.Contains (c.DefaultGraphicTD.color))
+				if(c.matched && !spriteInfo.Contains (c.DefaultGraphicTD.sprite))
 				{
-					colorInfo.Add (c.DefaultGraphicTD.color);
+					spriteInfo.Add (c.DefaultGraphicTD.sprite);
 				}
+
+				c.ccCell.Play (c.spriteTints[c.spriteChoices.IndexOf (c.DefaultGraphicTD.sprite)]);
 
 				r.RemoveCell (r.Cells.IndexOf (c));
 				
@@ -280,7 +301,7 @@ public class Board : MonoBehaviour {
 			switch(specialClearStyle)
 			{
 				case SpecialClearStyles.ClearAllMatchingColors:
-					ClearMatchingColors(colorInfo);
+					ClearMatchingColors(spriteInfo);
 					break;
 			};
 		}
@@ -303,15 +324,40 @@ public class Board : MonoBehaviour {
 		}
 	}
 
-	private void ClearMatchingColors(List<Color> info)
+	public void SpriteMatchScore(Sprite s)
 	{
-		for(int i = 0; i < rows; i++)
+		CriticalCellData data = null;
+
+		specificMatchSprite = s;
+
+		for(int i = 0; i < keys.Length; i++)
+		{
+			data = ccDict[keys[i]];
+
+			if(data.CurrentMatchList.Count >= MatchRequirement && data.cell.Match (s))
+			{
+				i = keys.Length; 
+
+				List<Sprite> l = new List<Sprite>();
+				l.Add (s);
+
+				Match (data.CurrentMatchList);
+			}
+		}
+	}
+
+	private void ClearMatchingColors(List<Sprite> info)
+	{
+		for(int i = 0; i < columns; i++)
 		{
 			for(int j = 0; j < rowList[i].Cells.Count; j++)
 			{
-				if(info.Contains (rowList[i].Cells[j].DefaultGraphicTD.color))
+				if(info.Contains (rowList[i].Cells[j].DefaultGraphicTD.sprite))
 				{
-					rowList[i].Cells[j].matched = true;
+					if(!rowList[i].Cells[j].matched)
+					{
+						rowList[i].Cells[j].remove = true;
+					}
 
 					HandleScoringCell (rowList[i].Cells[j], rowList[i], false);
 
