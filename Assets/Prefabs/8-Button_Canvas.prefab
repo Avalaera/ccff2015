@@ -661,6 +661,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 2
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -758,6 +759,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 3
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -909,6 +911,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 7
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -1006,6 +1009,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 5
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -1082,6 +1086,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 0
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -1237,6 +1242,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 4
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -1376,6 +1382,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 6
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -1452,6 +1459,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  mult: 1
   rb: {fileID: 5027300}
   onPointerDown:
     m_PersistentCalls:
@@ -2047,7 +2055,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 8.59000015, y: 1.38}
+  m_AnchoredPosition: {x: 7.86000013, y: 1.38}
   m_SizeDelta: {x: 771, y: 452}
   m_Pivot: {x: .5, y: .5}
 --- !u!224 &22495722
@@ -2077,7 +2085,7 @@ HingeJoint2D:
   m_CollideConnected: 0
   m_ConnectedRigidBody: {fileID: 0}
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 8.59000015, y: 1.38}
+  m_ConnectedAnchor: {x: 7.86000013, y: 1.38}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
