@@ -222,7 +222,7 @@ public class Board : MonoBehaviour {
 			}
 			else if(buttons > -1)
 			{
-				buttons--;
+				buttons = -1;
 
 				endFade.FadeIn ();
 
