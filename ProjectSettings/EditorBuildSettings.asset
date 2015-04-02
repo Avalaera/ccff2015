@@ -8,6 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Playable/MainMenu.unity
   - enabled: 1
-    path: Assets/Scenes/BB_Test_With_Button.unity
+    path: Assets/Scenes/Playable/Yahman_Easy.unity
   - enabled: 1
-    path: Assets/Scenes/BB_Test.unity
+    path: Assets/Scenes/Playable/SC2K_Easy.unity
+  - enabled: 1
+    path: Assets/Scenes/Playable/Voyager_Easy.unity
+  - enabled: 1
+    path: Assets/Scenes/Playable/NorthernBelle_Easy.unity
