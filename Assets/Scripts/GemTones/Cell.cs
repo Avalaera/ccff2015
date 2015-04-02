@@ -139,7 +139,7 @@ public class Cell : Button {
 
 	private void FixedUpdate()
 	{
-		if(ccCell != null)
+		if(ccCell != null && matched)
 		{
 			graphic.rotation = ccCell.transform.rotation;
 

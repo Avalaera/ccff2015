@@ -41,6 +41,13 @@ public class Board : MonoBehaviour {
 
 	public Text scoreText;
 
+	private SimpleCanvasGroupFade endFade = null;
+
+	private AudioSource endAudio = null;
+
+	[HideInInspector]
+	public int buttons = 0;
+
 	public enum ClearStyles
 	{
 		MatchesOnly,
@@ -74,6 +81,10 @@ public class Board : MonoBehaviour {
 			ccDict.Keys.CopyTo (keys, 0);
 
 			DoWithKeys (MakeCriticalCellWithIndex);
+
+			endFade = GameObject.FindGameObjectWithTag ("Score").GetComponent<SimpleCanvasGroupFade>();
+
+			endAudio = GameObject.FindGameObjectWithTag ("Score").GetComponent<AudioSource>();
 		}
 		else
 		{
@@ -189,22 +200,33 @@ public class Board : MonoBehaviour {
 
 	public void DoOnBeat(BeatType mask)
 	{
-		if(movableRowList.Count > 0 && mask.Equals (BeatType.OnBeat))
+		if(mask.Equals (BeatType.OnBeat))
 		{
-			if(beatsToSkip > 0)
+			if(movableRowList.Count > 0 && buttons > 0)
 			{
-				beatsToSkip--;
-			}
-			else
-			{
-				int y = picker.PickRow<RowData> (rowList, movableRowList);
-					
-				movableRowList[y].MoveForward(cellPrefab);
-
-				if(movableRowList[y].CellCount >= rows && movableRowList[y].Trans.localPosition.x >= rows * cellPrefab.Size.x)
+				if(beatsToSkip > 0)
 				{
-					movableRowList.Remove (movableRowList[y]);
+					beatsToSkip--;
 				}
+				else
+				{
+					int y = picker.PickRow<RowData> (rowList, movableRowList);
+						
+					movableRowList[y].MoveForward(cellPrefab);
+
+					if(movableRowList[y].CellCount >= rows && movableRowList[y].Trans.localPosition.x >= rows * cellPrefab.Size.x)
+					{
+						movableRowList.Remove (movableRowList[y]);
+					}
+				}
+			}
+			else if(buttons > -1)
+			{
+				buttons--;
+
+				endFade.FadeIn ();
+
+				endAudio.Play ();
 			}
 		}
 	}

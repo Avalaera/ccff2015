@@ -8,6 +8,7 @@ TagManager:
   - OnBeatObs
   - CellCanvas
   - Hook
+  - Score
   layers:
   - Default
   - TransparentFX

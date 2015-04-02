@@ -38,6 +38,8 @@ public class DialButton : Button, IDragHandler {
 		{
 			board = Board.Instance;
 
+			board.buttons++;
+
 			Sprite[] sprites = board.cellPrefab.spriteChoices.ToArray();
 
 			int index = UnityEngine.Random.Range(0, sprites.Length);
@@ -105,6 +107,8 @@ public class DialButton : Button, IDragHandler {
 			board.biggestMult = mult;
 
 			board.SpriteMatchScore(sprite);
+
+			board.buttons--;
 		}
 	}
 }
